@@ -15,16 +15,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v3
+      - name: Configure AWS credentials using OIDC
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-region: us-east-1
           role-to-assume: arn:aws:iam::498432337884:role/sts-lab-2-target
-          role-session-name: OIDCSession
+          role-session-name: GitHubActionsOIDCSession1
 
-      - name: Read Secrets
-        run: aws secretsmanager get-secret-value --secret-id flag_sts_lab_1
+      - name: Read secrets 
+        run: aws secretsmanager get-secret-value --secret-id flag_sts_lab_2 -profile lab2 
         shell: bash
