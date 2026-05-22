@@ -19,12 +19,12 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v3
         with:
           aws-region: us-east-1
-          role-to-assume: ${{ secrets.READ_ROLE }}
+          role-to-assume: arn:aws:iam::498432337884:role/sts-lab-2-target
           role-session-name: OIDCSession
 
-      - name: Verify AWS identity
-        run: aws sts get-caller-identity
+      - name: Read Secrets
+        run: aws secretsmanager get-secret-value --secret-id flag_sts_lab_1
         shell: bash
